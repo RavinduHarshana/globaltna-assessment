@@ -1,8 +1,38 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import JobRequest from './models/JobRequest';
+import User from './models/User';
+import bcrypt from 'bcryptjs';
 
 dotenv.config();
+
+const users = [
+    {
+        name: "Amal Perera",
+        email: "Amal@gmail.com",
+        password: "1234",
+    },
+    {
+        name: "Kasuni Fernando",
+        email: "kasuni.f@gmail.com",
+        password: "1234",
+    },
+    {
+        name: "Ravindu Silva",
+        email: "ravindu.silva@gmail.com",
+        password: "1234",
+    },
+    {
+        name: "Tharushi Jayasinghe",
+        email: "tharushi.j@gmail.com",
+        password: "1234",
+    },
+    {
+        name: "Sahan Wijeratne",
+        email: "sahanw@gmail.com",
+        password: "1234",
+    },
+];
 
 const sampleJobs = [
 
@@ -11,8 +41,8 @@ const sampleJobs = [
         "description": "Kitchen tap has been leaking since yesterday. Need a plumber urgently.",
         "category": "Plumbing",
         "location": "Colombo",
-        "contactName": "Nimal Perera",
-        "contactEmail": "nimal.perera@gmail.com",
+        "contactName": "Amal Perera",
+        "contactEmail": "Amal@gmail.com",
         "status": "Open"
     },
     {
@@ -87,10 +117,29 @@ const seedDB = async () => {
         await mongoose.connect(mongoURI);
         console.log('Connected to Database for Seeding...');
 
-        
+        // user seed
+        for (const user of users) {
+            const hashedPassword = await bcrypt.hash(user.password, 10);
+
+            await User.updateOne(
+                { email: user.email },
+                {
+                    $setOnInsert: {
+                        name: user.name,
+                        email: user.email,
+                        password: hashedPassword,
+                    },
+                },
+                { upsert: true }
+            );
+        }
+
+        console.log("Users seeded safely");
+
+        //job seed
         await JobRequest.deleteMany();
 
-        
+
         await JobRequest.insertMany(sampleJobs);
         console.log('Inserted sample jobs successfully!');
 
