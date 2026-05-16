@@ -10,6 +10,7 @@ const generateToken = (id: string) => {
   });
 };
 
+//Register a new user
 export const registerUser = async (req: Request, res: Response): Promise<any> => {
   try {
     const { name, email, password } = req.body;
@@ -33,7 +34,7 @@ export const registerUser = async (req: Request, res: Response): Promise<any> =>
   }
 };
 
-
+//login user
 export const loginUser = async (req: Request, res: Response): Promise<any> => {
   try {
     const { email, password } = req.body;

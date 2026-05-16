@@ -28,28 +28,24 @@ export const createJob = async (req: Request, res: Response): Promise<any> => {
 // Get all jobs
 export const getJobs = async (req: Request, res: Response): Promise<any> => {
     try {
-        const { category, status } = req.query;
+        const { category, status, search } = req.query; 
         let filter: any = {};
 
         if (category) filter.category = category;
         if (status) filter.status = status;
 
+        
+        if (search) {
+            filter.$or = [
+                { title: { $regex: search as string, $options: 'i' } },
+                { description: { $regex: search as string, $options: 'i' } }
+            ];
+        }
+
         const jobs = await JobRequest.find(filter).sort({ createdAt: -1 });
-        return res.status(200).json(
-            {
-                status: 'success',
-                data: jobs,
-                message: 'Jobs fetched successfully',
-                error: null
-            }
-        );
+        return res.status(200).json({ data: jobs });
     } catch (error) {
-        return res.status(500).json({
-            status: 'error',
-            data: null,
-            message: 'Error fetching jobs',
-            error: error instanceof Error ? error.message : 'Unknown error'
-        });
+        return res.status(500).json({ message: 'Error fetching jobs', error });
     }
 };
 
@@ -58,7 +54,7 @@ export const getJobById = async (req: Request, res: Response): Promise<any> => {
     try {
         const job = await JobRequest.findById(req.params.id);
         if (!job) {
-            return res.status(404).json({ message: 'Job not found' }); // 404 error eka
+            return res.status(404).json({ message: 'Job not found' });
         }
         return res.status(200).json(
             {
