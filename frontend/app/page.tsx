@@ -40,7 +40,7 @@ export default function Home() {
         params.append("status", statusFilter);
       }
 
-      const url = `${process.env.NEXT_PUBLIC_API_URL}?${params.toString()}`;
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/jobs?${params.toString()}`;
 
       const res = await fetch(url);
 
