@@ -33,7 +33,7 @@ export default function MyRequestsPage() {
       const user = JSON.parse(storedUser);
 
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/jobs`);
         if (!res.ok) throw new Error("Failed to fetch jobs");
         const result = await res.json();
 

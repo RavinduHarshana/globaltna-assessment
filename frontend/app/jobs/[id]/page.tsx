@@ -24,7 +24,7 @@ export default function JobDetailPage() {
 
   const fetchJobDetails = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${id}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/jobs/${id}`);
       if (!res.ok) throw new Error("Job not found");
       const data = await res.json();
       setJob(data.data);
@@ -42,7 +42,7 @@ export default function JobDetailPage() {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/jobs/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -73,7 +73,7 @@ export default function JobDetailPage() {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/jobs/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
