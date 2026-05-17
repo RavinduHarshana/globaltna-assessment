@@ -44,7 +44,7 @@ describe('Job API Endpoints', () => {
     it('GET /api/jobs/:id - should return a job by id with 200 status', async () => {
         const mockJob = { _id: '123', title: 'Test Job', category: 'Plumbing', status: 'Open' };
 
-        (JobRequest.findById as jest.Mock).mockResolvedValue(mockJob);
+        (JobRequest.findById as jest.Mock).mockResolvedValue(mockJob as never);
 
         const res = await request(app).get('/api/jobs/123');
 
