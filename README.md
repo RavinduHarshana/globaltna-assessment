@@ -9,9 +9,12 @@
 ![Vercel](https://img.shields.io/badge/Vercel-000000?logo=vercel)
 ![Railway](https://img.shields.io/badge/Railway-131415?logo=railway)
 
-A clean, responsive full-stack service request platform built for the **GlobalTNA Full-Stack Developer Intern assessment**.  
-Users can browse, create, update, and delete service requests securely using JWT authentication.
+A clean and responsive full-stack service request platform built for the **GlobalTNA Full-Stack Developer Intern Assessment**. <br>
+- 🌍 Any user can browse and view all service requests without authentication.
+- 🔐 Authenticated users can securely create, update, and delete only their own service requests using JWT authentication.
+- 👤 Users can manage their posted requests through a personalized **My Requests Dashboard**.
 
+---
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/23a6c05f-2071-4422-9ab5-9dcfa0edb03d" />
 
 ---
@@ -90,10 +93,144 @@ Open:
     npm test
 
 ## 📌 Project Structure
-<br>
-&emsp;backend/<br>
-&emsp; frontend/<br>
-  &emsp;&emsp;  │── app/<br>
-  &emsp;&emsp;  │── components/<br>
-  &emsp;&emsp;  │── pages/<br>
-  &emsp;&emsp;  │── styles/<br>
+
+```bash
+globaltna-service-board/
+│
+├── backend/
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── middleware/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   ├── tests/
+│   │   └── server.ts
+│   │
+│   ├── .env
+│   ├── package.json
+│   └── tsconfig.json
+│
+├── frontend/
+│   ├── app/
+│   ├── components/
+│   ├── hooks/
+│   ├── lib/
+│   ├── public/
+│   ├── styles/
+│   ├── types/
+│   └── package.json
+│
+├── README.md
+└── .gitignore
+```
+---
+
+## 📡 API Endpoints
+
+### Auth Routes
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/auth/register` | Register new user |
+| POST | `/api/auth/login` | Login user & get JWT token |
+
+---
+
+### Service Request Routes
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/jobs` | Get all service requests |
+| GET | `/api/jobs/:id` | Get single request |
+| POST | `/api/jobs` | Create new request *(Protected)* |
+| PUT | `/api/jobs/:id` | Update request *(Protected)* |
+| DELETE | `/api/jobs/:id` | Delete request *(Protected)* |
+
+---
+
+### Example Request
+
+#### Create Service Request
+
+```http
+POST /api/jobs
+Authorization: Bearer YOUR_JWT_TOKEN
+Content-Type: application/json
+```
+
+#### Request Body
+
+```json
+ {
+    "title": "Gardener needed for lawn maintenance",
+    "description": "Need regular lawn mowing and hedge trimming for a medium-sized garden.",
+    "category": "Gardening",
+    "location": "Liverpool",
+    "contactName": "Emma Johnson",
+    "contactEmail": "emma.johnson@example.com"
+  }
+```
+
+#### Success Response
+
+```json
+{
+    "status": "success",
+    "data": {
+        "_id": "6a081e5e18d56bb931e6645a",
+        "title": "Need wall painting for shop",
+        "description": "Small grocery shop needs exterior wall painting before opening.",
+        "category": "Painting",
+        "location": "Matara",
+        "contactName": "Dinesh Kumara",
+        "contactEmail": "dinesh.k@gmail.com",
+        "status": "In Progress",
+        "__v": 0,
+        "createdAt": "2026-05-16T07:35:58.623Z",
+        "updatedAt": "2026-05-17T05:11:53.544Z"
+    },
+    "message": "Job fetched successfully",
+    "error": null
+}
+```
+
+### Example Authorization Header
+
+```http
+Authorization: Bearer YOUR_JWT_TOKEN
+```
+
+---
+
+### Authentication Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/auth/register` | Register a new user |
+| POST | `/api/auth/login` | Login user and receive JWT token |
+
+---
+
+
+### Login Response Example
+
+```json
+{
+    "name":"Nimal", 
+    "email":"Nimal@gmail.com",
+    "password":"Nimal@1234"
+}
+```
+
+---
+### Login Response Example
+
+```json
+{
+    "_id": "6a098e6e2e676d13abdb7b4f",
+    "name": "Nimal",
+    "email": "Nimal@gmail.com",
+    "token": "JWT_Toket Here"
+}
+```
+
