@@ -63,9 +63,15 @@ export default function MyRequestsPage() {
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="flex justify-between items-center mb-6 border-b p-6">
-        <h2 className="text-2xl font-bold text-gray-800">My Requests</h2>
-        <Link 
-          href="/jobs/new" 
+        <div className="flex items-center space-x-4">
+
+          <Link href="/" className="text-blue-600 hover:underline">
+            ← Back
+          </Link>
+          <h2 className="text-2xl font-bold text-gray-800">My Requests</h2>
+        </div>
+        <Link
+          href="/jobs/new"
           className="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition"
         >
           + New Request
@@ -83,24 +89,23 @@ export default function MyRequestsPage() {
           {myJobs.map((job) => (
             <Link href={`/jobs/${job._id}`} key={job._id}>
               <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition cursor-pointer h-full flex flex-col relative">
-                
+
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="font-semibold text-lg text-gray-800 line-clamp-1 pr-2">
                     {job.title}
                   </h3>
-                  <span className={`text-xs px-2 py-1 rounded font-medium whitespace-nowrap ${
-                    job.status === 'Open' ? 'bg-green-100 text-green-700' : 
-                    job.status === 'In Progress' ? 'bg-yellow-100 text-yellow-700' : 
-                    'bg-gray-100 text-gray-700'
-                  }`}>
+                  <span className={`text-xs px-2 py-1 rounded font-medium whitespace-nowrap ${job.status === 'Open' ? 'bg-green-100 text-green-700' :
+                    job.status === 'In Progress' ? 'bg-yellow-100 text-yellow-700' :
+                      'bg-gray-100 text-gray-700'
+                    }`}>
                     {job.status}
                   </span>
                 </div>
-                
+
                 <p className="text-gray-600 text-sm mb-4 line-clamp-2 flex-grow">
                   {job.description}
                 </p>
-                
+
                 <div className="flex justify-between items-center mt-auto pt-4 border-t border-gray-50">
                   <span className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded">
                     {job.category}

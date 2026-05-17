@@ -3,11 +3,14 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-300 mt-16">
-      <div className="max-w-6xl mx-auto px-6 py-12">
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
 
-          <div>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+        
+          <div className="text-center sm:text-left">
             <h2 className="text-2xl font-bold text-white mb-4">
               SkillLink
             </h2>
@@ -17,7 +20,8 @@ export default function Footer() {
             </p>
           </div>
 
-          <div>
+      
+          <div className="text-center sm:text-left">
             <h3 className="text-white font-semibold mb-4">
               Quick Links
             </h3>
@@ -43,7 +47,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
+          <div className="text-center sm:text-left">
             <h3 className="text-white font-semibold mb-4">
               Categories
             </h3>
@@ -56,7 +60,8 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
+         
+          <div className="text-center sm:text-left">
             <h3 className="text-white font-semibold mb-4">
               Contact
             </h3>
@@ -75,6 +80,7 @@ export default function Footer() {
         </div>
 
       </div>
+
     </footer>
   );
 }
